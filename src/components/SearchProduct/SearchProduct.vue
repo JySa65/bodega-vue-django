@@ -8,36 +8,33 @@
       </label>
     </div>
     <div class="col-md-10 col-xs-12 col-sm-12">
-      <form
-        action=""
-        method="get"
-      >
-        <div class="input-group">
-          <input
-            type="search"
-            class="form-control"
-            placeholder="Ejemplo: Harina"
-            aria-label="Recipient's username"
-            aria-describedby="button-addon2"
-            name="q"
-            autocomplete="off"
-          />
-          <button
-            class="btn btn-outline-secondary"
-            type="button"
-            id="button-addon2"
-          >
-            Buscar
-          </button>
-
-        </div>
-      </form>
+      <input
+        type="search"
+        class="form-control"
+        placeholder="Ejemplo: Harina"
+        aria-label="Recipient's username"
+        aria-describedby="button-addon2"
+        name="q"
+        autocomplete="off"
+        v-model="dataInput"
+        @input="getDataInput"
+      />
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'SearchProduct'
+  name: 'SearchProduct',
+  data: function () {
+    return {
+      dataInput: ''
+    }
+  },
+  methods: {
+    getDataInput: function () {
+      this.$emit('datainput', this.dataInput)
+    }
+  }
 }
 </script>

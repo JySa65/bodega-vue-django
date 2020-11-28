@@ -3,10 +3,15 @@ module.exports = {
   env: {
     node: true
   },
-  extends: [
-    'plugin:vue/vue3-essential',
-    '@vue/standard'
-  ],
+  parserOptions: {
+    ecmaVersion: 2020
+  },
+  globals: {
+    process: true,
+    require: true,
+    module: true
+  },
+  extends: ['plugin:vue/vue3-essential', '@vue/standard'],
   parserOptions: {
     parser: 'babel-eslint'
   },
