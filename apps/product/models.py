@@ -1,11 +1,15 @@
 from django.db import models
+from django.db.models import CharField
+from django.db.models.functions import Lower
 
 # Create your models here.
 
+CharField.register_lookup(Lower)
+
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
-    created_at = models.DateTimeField(auto_now_add=True)
+    name = models.CharField("Nombre", max_length=100)
+    created_at = models.DateTimeField('Creado el', auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -17,10 +21,9 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=10000)
-    categories = models.ManyToManyField(Category)
-    prices = models.ManyToManyField(Price)
-    created_at = models.DateTimeField(auto_now_add=True)
+    name = models.CharField("Nombre", max_length=10000)
+    categories = models.ManyToManyField(Category, verbose_name="Categorias")
+    created_at = models.DateTimeField('Creado el', auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -32,8 +35,13 @@ class Product(models.Model):
 
 
 class Price(models.Model):
-    price = models.DecimalField(max_digits=10, decimal_places=4)
-    created_at = models.DateTimeField(auto_now_add=True)
+    price_buy = models.DecimalField(
+        'Precio de Compra', max_digits=10, decimal_places=2)
+    price_sell = models.DecimalField(
+        'Precio de Venta', max_digits=10, decimal_places=2)
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, verbose_name="Producto")
+    created_at = models.DateTimeField('Creado el', auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -41,4 +49,4 @@ class Price(models.Model):
         verbose_name_plural = "Precios"
 
     def __str__(self):
-        return '{}'.format(self.price)
+        return '{} - {}'.format(self.product, self.price_sell)

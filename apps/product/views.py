@@ -16,8 +16,8 @@ class ProductGenericsList(generics.ListAPIView):
         if category != '':
             filters['categories__name'] = category
         if product != '':
-            filters['name__icontains'] = product
-        return Product.objects.filter(**filters)
+            filters['name__lower__icontains'] = product
+        return Product.objects.filter(**filters).order_by('name')
 
 
 class CategoryGenericsList(generics.ListAPIView):

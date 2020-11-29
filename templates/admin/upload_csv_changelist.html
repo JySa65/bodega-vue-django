@@ -1,0 +1,13 @@
+{% extends 'admin/change_list.html' %} {% block content %}
+<style>
+  label[for='id_csv_file'] {
+    display: none;
+  }
+</style>
+{{ block.super }}
+<form action="upload-csv/" method="post" enctype="multipart/form-data">
+  {% csrf_token %} {{ csv_upload_form }}
+  <input type="submit" value="Subir productos" />
+  {{ csv_upload_form.errors }}
+</form>
+{% endblock %}

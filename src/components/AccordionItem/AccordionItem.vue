@@ -25,7 +25,8 @@
       data-parent="#accordionFlushExample"
     >
       <div class="accordion-body">
-        Todavia no se que va aqui.
+        <slot name="accordionBody">
+        </slot>
       </div>
     </div>
   </div>
@@ -36,7 +37,9 @@ export default {
   name: 'AccordionItem',
   props: {
     nameProduct: String,
-    priceProduct: String
+    priceProduct: {
+      default: 0
+    }
   },
   methods: {
     convertToSlug: function (text) {

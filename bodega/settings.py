@@ -25,12 +25,14 @@ SECRET_KEY = 'rs2c2yy8*$pz+hd6ji$hhor0-v18(4t9_a-28+42#0nzse#8_x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    # 'jet',
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,7 +42,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
 
-    'apps.product.apps.ProductConfig'
+    'apps.product.apps.ProductConfig',
+    'apps.generic.apps.GenericConfig'
 ]
 
 MIDDLEWARE = [
@@ -59,7 +62,9 @@ ROOT_URLCONF = 'bodega.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            "{}/templates".format(BASE_DIR),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,6 +87,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'ATOMIC_REQUESTS': True
     }
 }
 
@@ -125,3 +131,45 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+JAZZMIN_SETTINGS = {
+    "site_title": 'Glabal',
+    "site_header": 'Glabal',
+    "welcome_sign": "Bienvenido a la administración",
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "show_ui_builder": True,
+    "related_modal_active": False,
+    # "changeform_format": "vertical_tabs",
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": True,
+    "accent": "accent-warning",
+    "navbar": "navbar-dark",
+    "no_navbar_border": True,
+    "navbar_fixed": True,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": True,
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": True,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": True,
+    "sidebar_nav_flat_style": True,
+    "theme": "darkly",
+    "dark_mode_theme": "lumen",
+    "actions_sticky_top": True
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 50,
+}
