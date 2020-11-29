@@ -5,5 +5,5 @@ from apps.generic.views import PriceUsdGenericsAPIView
 app_name = "generic"
 
 urlpatterns = [
-    path('', PriceUsdGenericsAPIView.as_view(), name="generic-priceusd"),
+    path('price-usd', PriceUsdGenericsAPIView.as_view(), name="generic-priceusd"),
 ]
